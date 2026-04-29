@@ -35,6 +35,24 @@ fi
 echo "✅ Architektur OK: $ARCH"
 
 echo
+echo "⚡ BOOT FIX: systemd-networkd-wait-online deaktivieren"
+systemctl disable systemd-networkd-wait-online.service 2>/dev/null || true
+systemctl mask systemd-networkd-wait-online.service 2>/dev/null || true
+echo "✅ wait-online deaktiviert/maskiert"
+
+echo
+echo "📡 RASPBERRY PI FIX: WLAN/Bluetooth deaktivieren"
+CONFIG_TXT="/boot/firmware/config.txt"
+
+if [ -f "$CONFIG_TXT" ]; then
+  grep -qxF "dtoverlay=disable-wifi" "$CONFIG_TXT" || echo "dtoverlay=disable-wifi" >> "$CONFIG_TXT"
+  grep -qxF "dtoverlay=disable-bt" "$CONFIG_TXT" || echo "dtoverlay=disable-bt" >> "$CONFIG_TXT"
+  echo "✅ WLAN/Bluetooth deaktiviert in $CONFIG_TXT"
+else
+  echo "⚠️ $CONFIG_TXT nicht gefunden - übersprungen"
+fi
+
+echo
 echo "🔄 APT UPDATE"
 apt update
 
@@ -46,7 +64,7 @@ apt install -y \
   gnupg \
   lsb-release \
   ca-certificates \
-  apt-transport-https \
+  apt-transport-https
 
 echo
 echo "🔧 NETWORK TOOLS"
