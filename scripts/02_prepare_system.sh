@@ -47,7 +47,6 @@ apt install -y \
   lsb-release \
   ca-certificates \
   apt-transport-https \
-  software-properties-common
 
 echo
 echo "🔧 NETWORK TOOLS"
