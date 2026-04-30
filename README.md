@@ -1,9 +1,18 @@
-🇬🇧 English version: docs/README_en.md
+# 🚀 PIMOX ARM64 – Proxmox VE auf Raspberry Pi 4/5
 
-# 🖥️ PIMOX ARM64 RPI CONTROL
+🇩🇪 Deutsch | 🇬🇧 [English version](docs/README_en.md)
 
-Proxmox VE (Pimox) Build System für Raspberry Pi 4 und Raspberry Pi 5  
-Basierend auf Debian 13 (Trixie)
+![PIMOX ARM64](https://img.shields.io/badge/PIMOX-ARM64-blue?style=for-the-badge)
+![Platform](https://img.shields.io/badge/Platform-Raspberry%20Pi%204%2F5-orange?style=for-the-badge)
+![Debian](https://img.shields.io/badge/Debian-13%20Trixie-red?style=for-the-badge)
+![Proxmox](https://img.shields.io/badge/Proxmox-VE%209-green?style=for-the-badge)
+![Status](https://img.shields.io/badge/Status-Testing-yellow?style=for-the-badge)
+![Network](https://img.shields.io/badge/Network-vmbr0%20Bridge-blueviolet?style=for-the-badge)
+![License](https://img.shields.io/badge/License-MIT-lightgrey?style=for-the-badge)
+
+
+Proxmox VE (Pimox) Build System für Modell Raspberry Pi 4 und Raspberry Pi 5 New  
+Basierend auf Debian 13 Lite (Trixie)
 
 ---
 
