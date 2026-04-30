@@ -43,6 +43,39 @@ Dieses Projekt ist für **Homelab / Test / Lab Umgebungen** gedacht.
 
 ---
 
+## 🔹 Vorbereitung (einmalig notwendig)
+- Debian 13 (ARM64) Image auf SD-Karte flashen
+- SD-Karte in Raspberry Pi stecken und booten
+- Monitor + Tastatur anschließen
+
+
+## 🔹 Erster Login
+
+Standard Login (je nach Image):
+
+```text
+Benutzer: root
+Passwort: raspberry
+```
+
+ODER
+```text
+Benutzer: debian
+Passwort: debian
+```
+
+## 🔹 SSH aktivieren
+
+
+```bash
+apt update
+apt install -y openssh-server
+systemctl enable ssh
+systemctl start ssh
+```
+
+---
+
 ## 🔐 Default Login
 
 ```text
