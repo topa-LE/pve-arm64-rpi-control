@@ -1,42 +1,154 @@
-# pve-arm64-rpi-control
+# 🖥️ PIMOX ARM64 RPI CONTROL
 
-Reproduzierbares Installations- und Kontrollprojekt für PVE / Proxmox-ähnliche ARM64-Komponenten auf Raspberry Pi 4 und Raspberry Pi 5.
+Proxmox VE (Pimox) Build System für Raspberry Pi 4 und Raspberry Pi 5  
+Basierend auf Debian 13 (Trixie)
+
+---
+
+## 🚀 Übersicht
+
+Dieses Projekt stellt ein vollständiges, reproduzierbares Build-System bereit, um einen Raspberry Pi in einen funktionierenden Proxmox VE (Pimox) Node zu verwandeln.
+
+Ziel ist ein stabiles, sauberes und automatisiertes Setup ohne manuelle Nacharbeit.
+
+---
+
+## ✨ Features
+
+- 🔧 Automatischer Build Workflow
+- 📦 Proxmox VE Installation auf ARM64
+- 🌐 Sauberes Netzwerk Setup mit vmbr0
+- ⚡ Live Migration ohne SSH Verlust
+- 🔄 Reproduzierbares Setup
+- 🧩 PXVIRT ARM64 Repository Integration
+
+---
 
 ## ⚠️ Wichtiger Hinweis
 
-Dieses Projekt ist **kein offizielles Proxmox VE Projekt**.
+Dieses Projekt ist für **Homelab / Test / Lab Umgebungen** gedacht.
 
-Proxmox VE unterstützt Raspberry Pi / ARM64 offiziell nicht. Dieses Repository dient der Entwicklung, Dokumentation und Automatisierung eines Community-/Homelab-Ansatzes.
+❗ Kein offiziell unterstütztes Proxmox VE System auf ARM
 
-## Ziel
+---
 
-- Raspberry Pi 4 und Raspberry Pi 5 getrennt testen
-- Installation reproduzierbar machen
-- Änderungen dokumentieren
-- Scripts Schritt für Schritt ausführen
-- Keine bestehenden Pimox-Systeme beschädigen
+## 🔐 Default Login
 
-## Status
+```text
+User: root  
+Password: pimox  
+```
 
-Frühe Entwicklungsphase.
 
-Aktuell vorhanden:
+⚠️ Sicherheit:
 
-- System-Check Script
-- Hardware-Report Script
-- Basis-Dokumentation
+- Passwort nach erstem Login ändern
+- Nicht produktiv mit Default Credentials betreiben
 
-## Erster Test auf einem Raspberry Pi
+---
+
+## 🧭 Workflow
+
+1. Debian 13 (Trixie) installieren
+2. System starten (eth0 DHCP)
+3. Repository klonen
+4. build.sh ausführen
+5. Proxmox VE wird installiert
+6. Netzwerk wird auf vmbr0 umgestellt
+7. Reboot
+8. Zugriff über Webinterface
+
+---
+
+## ▶️ Installation
 
 ```bash
 git clone https://github.com/topa-LE/pve-arm64-rpi-control.git
 cd pve-arm64-rpi-control
-sudo bash scripts/00_system_check.sh
-sudo bash scripts/01_hardware_report.sh
+chmod +x build.sh
+sudo ./build.sh
+```
 
-Zielgeräte
-Raspberry Pi 4 ARM64
-Raspberry Pi 5 ARM64
-Nicht-Ziel
+---
 
-Dieses Projekt ist aktuell kein produktiver Ersatz für offizielles Proxmox VE auf x86.
+
+## 🌉 Netzwerk Konzept
+
+Das System nutzt das klassische Proxmox Netzwerkmodell:
+
+- eth0 → nur Bridge Port
+- vmbr0 → Haupt-IP Interface
+
+Wichtig:
+
+- Umstellung erfolgt erst nach Installation
+- Live Switch verhindert SSH-Verlust
+- Kein doppeltes IP Setup
+
+---
+
+## 🌉 Netzwerk (WICHTIG)
+
+Das System verwendet:
+```text
+eth0 → nur Bridge Port
+vmbr0 → Haupt-IP Interface
+```
+
+Beispiel:
+```text
+vmbr0 → 192.168.x.x
+Gateway → Router
+```
+
+---
+
+
+
+
+## ❌ Nicht enthalten
+
+- ❌ WLAN Setup
+- ❌ Feste IP Vorgabe
+- ❌ GUI Anpassungen
+- ❌ Auto Cluster Join
+
+---
+
+## ✅ Getestet auf
+
+- Raspberry Pi 4
+- Raspberry Pi 5
+- Debian 13 (Trixie)
+- Kernel 6.12+
+- Proxmox VE 9
+
+---
+
+## 🧠 Hinweise
+
+- vmbr0 wird bewusst erst nach Installation gesetzt
+- Backup vor Netzwerkänderung wird erstellt
+- Live Migration ist getestet und stabil
+- Setup ist vollständig reproduzierbar
+
+---
+
+## 📦 Status
+
+✔ Stabil  
+✔ Getestet  
+✔ Einsatzbereit  
+
+---
+
+## 👨‍💻 Autor
+
+topa-LE
+
+
+## MIT Lizenz
+
+
+
+
