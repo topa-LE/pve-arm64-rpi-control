@@ -1,3 +1,5 @@
+🇬🇧 English version: docs/README_en.md
+
 # 🖥️ PIMOX ARM64 RPI CONTROL
 
 Proxmox VE (Pimox) Build System für Raspberry Pi 4 und Raspberry Pi 5  
