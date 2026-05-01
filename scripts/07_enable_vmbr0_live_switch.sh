@@ -12,6 +12,12 @@ fi
 
 IFACE="${IFACE:-eth0}"
 
+echo
+echo "🛑 NetworkManager deaktivieren (RaspOS Fix)"
+systemctl disable --now NetworkManager 2>/dev/null || true
+systemctl mask NetworkManager 2>/dev/null || true
+systemctl daemon-reload
+
 CURRENT_CIDR=$(ip -4 -o addr show dev "$IFACE" | awk '{print $4}' | head -n1)
 CURRENT_IP=$(echo "$CURRENT_CIDR" | cut -d/ -f1)
 GATEWAY=$(ip route | awk '/default/ {print $3; exit}')
@@ -59,7 +65,7 @@ cat /etc/network/interfaces
 
 echo
 echo "🚀 Live Switch starten"
-ifup vmbr0 || true
+ifup vmbr0
 sleep 2
 
 echo
@@ -69,13 +75,33 @@ sleep 2
 
 echo
 echo "🔄 Netzwerk neu laden"
-ifreload -a || true
+ifreload -a
 sleep 2
 
 echo
 echo "===== CHECK ====="
 ip -br a
 ip route
+
+echo
+echo "🔍 FINAL CHECK vmbr0"
+
+if ip -br a | grep -q "vmbr0[[:space:]].*UP.*$CURRENT_IP"; then
+  echo "✅ vmbr0 aktiv mit IP $CURRENT_IP"
+else
+  echo "❌ vmbr0 NICHT korrekt aktiv – Abbruch!"
+  ip -br a
+  ip route
+  exit 1
+fi
+
+if ip -4 -o addr show dev "$IFACE" | grep -q "$CURRENT_IP"; then
+  echo "❌ $IFACE hat noch die alte IP $CURRENT_IP – Abbruch!"
+  ip -br a
+  exit 1
+else
+  echo "✅ $IFACE hat keine alte IP mehr"
+fi
 
 echo
 echo "✅ vmbr0 Live Switch fertig"
