@@ -144,4 +144,4 @@ chroot "$MOUNT" ssh-keygen -A
 
 echo
 echo "✅ IMAGE PREP FERTIG"
-echo "USB/NVMe kann jetzt in den Raspberry Pi."
+echo "USB / SSD / NVMe (M.2 über Adapter) kann jetzt in den Raspberry Pi."

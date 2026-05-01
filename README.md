@@ -1,4 +1,4 @@
-# 🚀 PVE PIMOX ARM64 – Proxmox VE auf Raspberry Pi 4/5
+# 🚀 PIMOX ARM64 – Proxmox VE auf Raspberry Pi 4/5
 
 🇩🇪 Deutsch | 🇬🇧 [English version](docs/README_en.md)
 
@@ -52,6 +52,51 @@ Wichtige Hinweise:
 - ❌ SD-Karten sind für Proxmox VE nicht empfohlen
 - ✅ USB-/NVMe-Storage bietet deutlich bessere Stabilität und Performance
 - ⚠️ SSH muss vor dem Ausführen von build.sh verfügbar sein
+
+---
+
+## 🔧 Image Vorbereitung (empfohlen – Option A)
+
+Für einen vollständig headless Betrieb (ohne Monitor/Tastatur) wird empfohlen,
+das Image vor dem ersten Boot vorzubereiten.
+
+Dafür steht folgendes Script zur Verfügung:
+
+```text
+scripts/08_prepare_pve_image.sh
+```
+
+Dieses Script übernimmt automatisch:
+
+- ✅ SSH Installation + Aktivierung
+- ✅ Root Login (Passwort: pimox)
+- ✅ DNS Fix (für chroot Umgebung)
+- ✅ ARM64 Validierung
+- ✅ Hostname + /etc/hosts Setup
+
+#### Nutzung:
+
+1. Image auf USB / SSD / NVMe (per Adapter) flashen  
+2. Datenträger an einem Linux-System anschließen  
+3. Script ausführen:
+
+```bash
+sudo bash scripts/08_prepare_pve_image.sh  
+```
+
+4. Zielpartition auswählen (z. B. /dev/sdb1)  
+5. Datenträger in Raspberry Pi einsetzen und booten  
+
+Danach ist ein direkter SSH-Zugriff möglich:
+```text
+ssh root@<IP>  
+```
+
+Passwort:
+```text
+pimox 
+```
+---
 
 # Option A – Empfohlen (Image vorbereiten)
 - Debian ARM64 Image auf USB/NVMe flashen
