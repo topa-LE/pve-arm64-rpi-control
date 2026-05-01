@@ -15,8 +15,8 @@ echo "✅ Root OK"
 
 echo
 echo "📦 Netzwerk-Basispakete installieren"
-apt update
-apt install -y ifupdown2 net-tools
+apt-get update
+apt-get install -y ifupdown2 net-tools
 
 echo
 echo "⚡ Boot-Wartezeit deaktivieren"

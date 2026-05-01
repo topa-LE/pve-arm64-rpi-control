@@ -54,11 +54,11 @@ fi
 
 echo
 echo "🔄 APT UPDATE"
-apt update
+apt-get update
 
 echo
 echo "⬆️ BASIS PAKETE INSTALLIEREN"
-apt install -y \
+apt-get install -y \
   curl \
   wget \
   gnupg \
@@ -68,7 +68,7 @@ apt install -y \
 
 echo
 echo "🔧 NETWORK TOOLS"
-apt install -y \
+apt-get install -y \
   ifupdown2 \
   net-tools
 

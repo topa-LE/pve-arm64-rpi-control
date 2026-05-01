@@ -23,24 +23,24 @@ echo "zfs-dkms zfs-dkms/enable boolean true" | debconf-set-selections
 
 echo
 echo "🔄 APT UPDATE"
-apt update
+apt-get update
 
 echo
 echo "📦 Installiere Basis Tools (verhindert Dialoge)"
-apt install -y dialog apt-utils
+apt-get install -y dialog apt-utils
 
 echo
 echo "🚀 Installiere proxmox-ve"
-apt install -y proxmox-ve
+apt-get install -y proxmox-ve
 
 echo
 echo "🔄 Upgrade nach PVE Installation"
-apt update
-apt upgrade -y
+apt-get update
+apt-get upgrade -y
 
 echo
 echo "🧹 Cleanup"
-apt autoremove -y
+apt-get autoremove -y
 
 echo
 echo "✅ PVE Installation fertig"

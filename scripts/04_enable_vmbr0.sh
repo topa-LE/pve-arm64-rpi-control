@@ -15,8 +15,8 @@ read -p "Weiter mit vmbr0 Setup? (yes/no): " CONFIRM
 
 echo
 echo "📦 Pakete sicherstellen"
-apt update
-apt install -y ifupdown2 bridge-utils
+apt-get update
+apt-get install -y ifupdown2 bridge-utils
 
 echo
 echo "💾 Backup erstellen"
