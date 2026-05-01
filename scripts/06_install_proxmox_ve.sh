@@ -11,8 +11,23 @@ if [ "$EUID" -ne 0 ]; then
 fi
 
 echo
+echo "⚙️ NON-INTERACTIVE MODE AKTIVIEREN"
+export DEBIAN_FRONTEND=noninteractive
+
+echo
+echo "📦 DEBCONF PRESEED (POSTFIX + ZFS)"
+echo "postfix postfix/main_mailer_type string No configuration" | debconf-set-selections
+echo "postfix postfix/mailname string localhost" | debconf-set-selections
+echo "zfs-dkms zfs-dkms/note string" | debconf-set-selections
+echo "zfs-dkms zfs-dkms/enable boolean true" | debconf-set-selections
+
+echo
 echo "🔄 APT UPDATE"
 apt update
+
+echo
+echo "📦 Installiere Basis Tools (verhindert Dialoge)"
+apt install -y dialog apt-utils
 
 echo
 echo "🚀 Installiere proxmox-ve"
