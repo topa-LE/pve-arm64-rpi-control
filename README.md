@@ -63,7 +63,7 @@ das Image vor dem ersten Boot vorzubereiten.
 Dafür steht folgendes Script zur Verfügung:
 
 ```text
-scripts/08_prepare_pve_image.sh
+scripts/09_prepare_pve_image.sh
 ```
 
 Dieses Script übernimmt automatisch:

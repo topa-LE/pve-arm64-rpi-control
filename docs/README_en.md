@@ -1,7 +1,7 @@
 # 🖥️ PIMOX ARM64 RPI CONTROL
 
 Proxmox VE (Pimox) Build System for Raspberry Pi 4 and Raspberry Pi 5  
-Based on Debian 13 (Trixie)
+Based on Debian 13 (Trixie) ARM64
 
 ---
 
@@ -45,6 +45,41 @@ Password: pimox
 
 ---
 
+## 🇬🇧 Recommended Installation Flow (Raspberry Pi 4)
+
+For a stable and reproducible setup, Debian ARM64 booting from USB/NVMe is strongly recommended.
+
+Important notes:
+
+- ❌ SD cards are not recommended for Proxmox VE
+- ✅ USB/NVMe storage provides significantly better stability and performance
+- ⚠️ SSH must be available before running build.sh
+
+# Option A – Recommended (prepare image)
+- Flash Debian ARM64 image to USB/NVMe
+- Enable SSH and root access in the image (e.g. via build server or Linux PC)
+- Boot the Raspberry Pi
+- connect via SSH
+
+clone the repository and run the installer:
+
+```bash
+git clone https://github.com/topa-LE/pve-arm64-rpi-control.git
+
+cd pve-arm64-rpi-control
+chmod +x build.sh
+./build.sh
+```
+
+
+
+# Option B – Alternative (local setup)
+- Boot Raspberry Pi with monitor and keyboard
+- login as root
+- enable and configure SSH
+- continue via SSH as described above
+
+---
 ## 🧭 Workflow
 
 1. Install Debian 13 (Trixie)
