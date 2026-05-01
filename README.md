@@ -1,4 +1,4 @@
-# 🚀 PIMOX ARM64 – Proxmox VE auf Raspberry Pi 4/5
+# 🚀 PVE PIMOX ARM64 – Proxmox VE auf Raspberry Pi 4/5
 
 🇩🇪 Deutsch | 🇬🇧 [English version](docs/README_en.md)
 
@@ -12,7 +12,7 @@
 
 
 Proxmox VE (Pimox) Build System für Modell Raspberry Pi 4 und Raspberry Pi 5 New  
-Basierend auf Debian 13 Lite (Trixie)
+Basierend auf Debian 13 Lite (Trixie) ARM64
 
 ---
 
@@ -43,7 +43,42 @@ Dieses Projekt ist für **Homelab / Test / Lab Umgebungen** gedacht.
 
 ---
 
-## 🔹 Vorbereitung (einmalig notwendig)
+## 🇩🇪 Empfohlener Installationsablauf (Raspberry Pi 4)
+
+Für eine stabile und reproduzierbare Installation wird Debian ARM64 von USB/NVMe empfohlen.
+
+Wichtige Hinweise:
+
+- ❌ SD-Karten sind für Proxmox VE nicht empfohlen
+- ✅ USB-/NVMe-Storage bietet deutlich bessere Stabilität und Performance
+- ⚠️ SSH muss vor dem Ausführen von build.sh verfügbar sein
+
+# Option A – Empfohlen (Image vorbereiten)
+- Debian ARM64 Image auf USB/NVMe flashen
+- SSH und Root-Zugriff im Image aktivieren (z. B. über Build-Server oder Linux-PC)
+- Raspberry Pi booten
+- per SSH verbinden
+
+Repository klonen und Installer starten:
+
+```bash
+git clone https://github.com/topa-LE/pve-arm64-rpi-control.git
+
+cd pve-arm64-rpi-control
+chmod +x build.sh
+./build.sh
+```
+
+
+# Option B – Alternative (lokal am Gerät)
+- Raspberry Pi mit Monitor und Tastatur starten
+- als root einloggen
+- SSH aktivieren und konfigurieren
+- danach wie oben per SSH fortfahren
+
+---
+
+## 🔹 Vorbereitung bei Option B (einmalig notwendig)
 - Debian 13 (ARM64) Image auf SD-Karte flashen
 - SD-Karte in Raspberry Pi stecken und booten
 - Monitor + Tastatur anschließen
