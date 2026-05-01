@@ -102,9 +102,13 @@ nameserver 8.8.8.8
 DNS
 
 echo
-echo "📦 openssh-server installieren"
+echo "📦 Basis Pakete installieren (git + ssh)"
 chroot "$MOUNT" apt-get update
-chroot "$MOUNT" env DEBIAN_FRONTEND=noninteractive apt-get install -y openssh-server
+chroot "$MOUNT" env DEBIAN_FRONTEND=noninteractive apt-get install -y \
+  openssh-server \
+  git \
+  curl \
+  ca-certificates
 
 echo
 echo "🔧 SSH Service aktivieren"
