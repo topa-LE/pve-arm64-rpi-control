@@ -16,11 +16,9 @@ Basierend auf Debian 13 Lite (Trixie) ARM64
 
 ---
 
-## 🚀 Übersicht
+## ⚡ One-Click Installer für Proxmox VE (ARM64)
 
-Dieses Projekt stellt ein vollständiges, reproduzierbares Build-System bereit, um einen Raspberry Pi in einen funktionierenden Proxmox VE (Pimox) Node zu verwandeln.
-
-Ziel ist ein stabiles, sauberes und automatisiertes Setup ohne manuelle Nacharbeit.
+Dieses Projekt ermöglicht die Installation eines Proxmox VE ähnlichen Systems (Pimox/PXVirt) auf einem Raspberry Pi (ARM64) mit einem stabilen, reproduzierbaren Netzwerk-Setup.
 
 ---
 
@@ -35,7 +33,32 @@ Ziel ist ein stabiles, sauberes und automatisiertes Setup ohne manuelle Nacharbe
 
 ---
 
-## ⚠️ Wichtiger Hinweis
+# 🎯 Ziel
+- 🔧 Automatisierter Build-Prozess
+- 🌉 Sauberes Bridge-Netzwerk (vmbr0)
+- ⚡ Kein Live-Network-Switch (keine SSH-Abbrüche)
+- 🔁 Reproduzierbarer Installer
+- 🧠 Minimale Fehleranfälligkeit
+
+
+
+## ⚠️ WICHTIG – Netzwerkstrategie
+
+Dieses Projekt verwendet KEIN Live Network Switching.
+
+- 👉 Warum?
+
+1. Vermeidet SSH-Abbrüche
+2. Vermeidet Lock-Probleme (ifupdown2)
+3. Vermeidet Konflikte mit netplan/systemd-networkd
+
+- 👉 Stattdessen:
+
+- Netzwerk wird persistent geschrieben
+- Aktivierung erfolgt ausschließlich per Reboot
+
+- ➡️ Das entspricht dem Verhalten eines echten Proxmox Installers
+
 
 Dieses Projekt ist für **Homelab / Test / Lab Umgebungen** gedacht.
 
@@ -135,14 +158,9 @@ Standard Login (je nach Image):
 
 ```text
 Benutzer: root
-Passwort: raspberry
+Passwort: pimox
 ```
 
-ODER
-```text
-Benutzer: debian
-Passwort: debian
-```
 
 ## 🔹 SSH aktivieren
 
@@ -170,6 +188,13 @@ Password: pimox
 - Nicht produktiv mit Default Credentials betreiben
 
 ---
+
+## 📦 Voraussetzungen
+- Raspberry Pi 4 / 5 (ARM64)
+- Debian 13 (Trixie) ARM64 installiert
+- SSH Zugriff aktiv
+- Root Zugriff (root / pimox)
+
 
 ## 🧭 Workflow
 
@@ -203,11 +228,6 @@ Das System nutzt das klassische Proxmox Netzwerkmodell:
 - eth0 → nur Bridge Port
 - vmbr0 → Haupt-IP Interface
 
-Wichtig:
-
-- Umstellung erfolgt erst nach Installation
-- Live Switch verhindert SSH-Verlust
-- Kein doppeltes IP Setup
 
 ---
 
@@ -228,14 +248,31 @@ Gateway → Router
 ---
 
 
-
-
 ## ❌ Nicht enthalten
 
 - ❌ WLAN Setup
 - ❌ Feste IP Vorgabe
 - ❌ GUI Anpassungen
 - ❌ Auto Cluster Join
+
+---
+
+## 📁 Projektstruktur
+
+| Pfad / Datei                             | Beschreibung                                               |
+| ---------------------------------------- | ---------------------------------------------------------- |
+| `build.sh`                               | 🚀 Hauptinstaller – führt alle Schritte in Reihenfolge aus |
+| `scripts/00_system_check.sh`             | 🔍 Systemprüfung (Architektur, OS, Basischecks)            |
+| `scripts/01_hardware_report.sh`          | 🖥️ Hardware-Infos (CPU, RAM, Devices)                     |
+| `scripts/02_prepare_system.sh`           | 📦 Basis-Pakete + System vorbereiten                       |
+| `scripts/03_expand_rootfs.sh`            | 💾 RootFS auf volle Größe erweitern                        |
+| `scripts/04_configure_network_bridge.sh` | 🌐 Netzwerk vorbereiten (ohne Aktivierung)                 |
+| `scripts/05_enable_vmbr0.sh`             | 🌉 Schreibt finale vmbr0 Bridge-Konfiguration              |
+| `scripts/06_add_proxmox_repo.sh`         | 📥 PXVIRT / Proxmox Repo hinzufügen                        |
+| `scripts/07_install_proxmox_ve.sh`       | ⚙️ Installation von Proxmox VE Komponenten                 |
+| `scripts/08_enable_vmbr0_live_switch.sh` | ℹ️ Deaktiviert – kein Live Switch (nur Info)               |
+| `docs/`                                  | 📚 Dokumentation (README, Zusatzinfos)                     |
+
 
 ---
 
@@ -253,7 +290,6 @@ Gateway → Router
 
 - vmbr0 wird bewusst erst nach Installation gesetzt
 - Backup vor Netzwerkänderung wird erstellt
-- Live Migration ist getestet und stabil
 - Setup ist vollständig reproduzierbar
 
 ---
