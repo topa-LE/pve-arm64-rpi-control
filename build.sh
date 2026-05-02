@@ -39,6 +39,12 @@ bash scripts/07_install_proxmox_ve.sh
 
 echo
 echo "🌉 STEP 08 - VMBR0 LIVE SWITCH"
+echo ""
+echo "⚠️ WICHTIG:"
+echo "Nach STEP 05 bitte reboot ausführen!"
+echo "Ohne Reboot wird vmbr0 nicht aktiv."
+echo ""
+
 bash scripts/08_enable_vmbr0_live_switch.sh
 
 echo
