@@ -6,6 +6,15 @@ echo "🌉 STEP 05 - VMBR0 FINAL CONFIG"
 echo "========================================"
 
 BRIDGE="${BRIDGE:-vmbr0}"
+
+# Skip wenn vmbr0 bereits aktiv ist
+if ip -4 addr show "$BRIDGE" 2>/dev/null | grep -q "inet "; then
+  echo "✅ $BRIDGE ist bereits aktiv – überspringe STEP 05"
+  ip -br a
+  ip route
+  exit 0
+fi
+
 IFACE="${IFACE:-$(ip -br link | awk '$1 !~ /^(lo|vmbr|wlan|br|docker|veth)/ {print $1; exit}')}"
 
 if [ -z "$IFACE" ]; then
