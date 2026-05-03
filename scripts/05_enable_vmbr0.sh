@@ -5,8 +5,8 @@ echo "========================================"
 echo "🌉 STEP 05 - VMBR0 FINAL CONFIG"
 echo "========================================"
 
-IFACE="${IFACE:-$(ip route | awk '/default/ {print $5; exit}')}"
 BRIDGE="${BRIDGE:-vmbr0}"
+IFACE="${IFACE:-$(ip -br link | awk '$1 !~ /^(lo|vmbr|wlan|br|docker|veth)/ {print $1; exit}')}"
 
 if [ -z "$IFACE" ]; then
   echo "❌ Kein aktives LAN-Interface erkannt!"
